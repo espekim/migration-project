@@ -1,0 +1,51 @@
+plugins {
+	id 'java'
+	// ▼ [중요] SNAPSHOT 대신 'Stable(정식)' 버전을 권장합니다.
+	// 혹시 꼭 3.5.x를 써야 한다면 두셔도 되지만, 가능하다면 3.4.x 등 정식 버전을 쓰세요.
+	// 일단 3.5.11-SNAPSHOT 유지하되, 아래에서 버전을 제어하겠습니다.
+	id 'org.springframework.boot' version '3.5.11-SNAPSHOT'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+	maven { url = 'https://repo.spring.io/snapshot' } // SNAPSHOT 사용 시 필수
+}
+
+// ▼ [핵심 해결책] Spring Boot가 관리하는 버전을 변수 하나로 제어합니다.
+// 이렇게 하면 exclude나 resolutionStrategy 같은 복잡한 코드 없이도
+// sshd-core, sshd-sftp, sshd-common이 알아서 2.12.0으로 통일됩니다.
+ext['sshd.version'] = '2.12.0'
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-batch'
+	implementation 'org.springframework.boot:spring-boot-starter-integration'
+	
+	// ▼ 복잡한 exclude 다 빼고, 그냥 추가만 하면 됩니다. (버전은 위 ext에서 제어됨)
+	implementation 'org.springframework.integration:spring-integration-sftp'
+	
+	// SSHD를 명시적으로 넣어주되, 버전은 적지 않아도 됩니다. (ext가 처리함)
+	implementation 'org.apache.sshd:sshd-sftp' 
+
+    implementation 'com.azure.spring:spring-cloud-azure-starter-storage-blob:5.19.0'
+
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'com.h2database:h2'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.batch:spring-batch-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

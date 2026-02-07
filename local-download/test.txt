@@ -1,0 +1,5 @@
+PS C:\Users\byung> docker ps
+CONTAINER ID   IMAGE                                     COMMAND                  CREATED          STATUS          PORTS                                                                     NAMES
+e58d04a10048   migration-app:v1                          "java -jar app.jar"      21 seconds ago   Up 20 seconds                                                                             my-migration-worker
+6ec3b8942903   atmoz/sftp                                "/entrypoint user:pa…"   7 days ago       Up 47 minutes   0.0.0.0:2222->22/tcp, [::]:2222->22/tcp                                   mock-sftp
+10eab0e3b5bd   mcr.microsoft.com/azure-storage/azurite   "docker-entrypoint.s…"   7 days ago       Up 47 minutes   0.0.0.0:10000-10002->10000-10002/tcp, [::]:10000-10002->10000-10002/tcp   mock-azurite

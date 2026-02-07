@@ -21,3 +21,8 @@ spec:
           value: "host.docker.internal" #local host의 위치설정
         - name: spring.cloud.azure.storage.blob.connection-string
           value: "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://host.docker.internal:10000/devstoreaccount1;"
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "info" # /actuator/info 열기

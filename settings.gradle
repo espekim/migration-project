@@ -4,4 +4,8 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
+plugins {
+    // 1. 이 플러그인을 추가하면 Gradle이 알아서 JDK를 다운로드합니다.
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.8.0'
+}
 rootProject.name = 'migrationproject'

@@ -26,9 +26,14 @@ repositories {
 // sshd-core, sshd-sftp, sshd-common이 알아서 2.12.0으로 통일됩니다.
 ext['sshd.version'] = '2.12.0'
 
+springBoot {
+	buildInfo() // 빌드 정보를 생성해라!
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-batch'
 	implementation 'org.springframework.boot:spring-boot-starter-integration'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
 	
 	// ▼ 복잡한 exclude 다 빼고, 그냥 추가만 하면 됩니다. (버전은 위 ext에서 제어됨)
 	implementation 'org.springframework.integration:spring-integration-sftp'
@@ -38,6 +43,8 @@ dependencies {
 
     implementation 'com.azure.spring:spring-cloud-azure-starter-storage-blob:5.19.0'
 
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -46,9 +53,6 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
-springBoot {
-	buildInfo() // 빌드 정보를 생성해라!
-}
 
 tasks.named('test') {
 	useJUnitPlatform()
